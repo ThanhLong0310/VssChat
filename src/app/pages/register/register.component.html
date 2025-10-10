@@ -1,0 +1,59 @@
+<div class="register-container">
+    <div class="left-panel">
+        <div class="illustration">
+            <img src="./assets/images/background-img.png" alt="background" class="img" />
+            <div class="illustration-text">
+                <h1>Hệ thống quản lý chat đa nền tảng</h1>
+                <p>Tiết kiệm thời gian tư vấn và chăm sóc khách hàng</p>
+                <div class="dots">
+                    <span class="dot active"></span>
+                    <span class="dot active"></span>
+                    <span class="dot active"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-panel">
+  <div id="language-container">
+    <img src="./assets/icons/language.png" alt="global icon" class="icon-global">
+    <select id="language-select" name="languages">
+      <option value="tiếng việt">Tiếng Việt</option>
+      <option value="tiếng anh">Tiếng Anh</option>
+      <option value="tiếng nhật">Tiếng Nhật</option>
+      <option value="tiếng trung">Tiếng Trung</option>
+    </select>
+  </div>
+
+  <div class="register-form">
+    <img src="./assets/images/vss-chat.png" alt="VSS Logo" class="logo" />
+    <h2>Đăng ký trải nghiệm</h2>
+
+    <form (ngSubmit)="onSubmit()">
+      <!-- Họ + Tên -->
+      <div class="form-row">
+        <input type="text" [(ngModel)]="first_name" name="first_name" placeholder="Nhập họ của bạn" required>
+        <input type="text" [(ngModel)]="last_name" name="last_name" placeholder="Nhập tên của bạn" required>
+      </div>
+
+      <!-- Quốc gia + Công ty -->
+      <div class="form-row">
+        <input type="text" [(ngModel)]="country" name="country" placeholder="Nhập quốc gia" required>
+        <input type="text" [(ngModel)]="company" name="company" placeholder="Nhập tên công ty" required>
+      </div>
+
+      <!-- Các input còn lại -->
+      <input type="email" [(ngModel)]="email" name="email" placeholder="Nhập email làm việc" required>
+      <input type="text" [(ngModel)]="field" name="field" placeholder="Nhập lĩnh vực" required>
+      <input type="text" [(ngModel)]="position" name="position" placeholder="Nhập vị trí làm việc" required>
+      <input type="text" [(ngModel)]="purpose" name="purpose" placeholder="Nhập mục đích" required>
+      <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="Nhập lại mật khẩu" required>
+
+      <button type="submit">Đăng ký</button>
+    </form>
+
+    <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
+    <p *ngIf="successMsg" class="success">{{ successMsg }}</p>
+
+    <p>Bạn đã có tài khoản? <a routerLink="/login">Đăng nhập</a></p>
+  </div>
+</div>

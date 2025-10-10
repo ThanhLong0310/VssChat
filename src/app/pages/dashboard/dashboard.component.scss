@@ -1,0 +1,122 @@
+@use 'variables' as variable;
+
+
+.user-page {
+  padding: 20px;
+  background-color: variable.$background-light;
+  min-height: 100vh;
+
+  .title {
+    text-align: center;
+    color: variable.$text-dark;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 25px;
+  }
+}
+
+/* Form */
+.user-form {
+  max-width: 850px;
+  margin: 0 auto 30px;
+  padding: 24px;
+  background: variable.$surface-color;
+  border-radius: 12px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+
+  .form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+
+    input {
+      padding: 12px;
+      border: 1px solid variable.$border-light;
+      border-radius: 6px;
+      font-size: 15px;
+      transition: 0.2s ease;
+
+      &:focus {
+        border-color: variable.$primary-color;
+        outline: none;
+        box-shadow: 0 0 0 2px rgba(variable.$primary-color, 0.2);
+      }
+    }
+  }
+
+  .btn-submit {
+    margin-top: 18px;
+    width: 100%;
+    padding: 14px;
+    background: variable.$primary-color;
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.3s;
+
+    &:hover {
+      background: darken(variable.$primary-color, 5%);
+    }
+  }
+}
+
+/* Table */
+.user-table {
+  width: 95%;
+  max-width: 1000px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  background: variable.$surface-color;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+
+  th, td {
+    padding: 14px 18px;
+    text-align: left;
+    border-bottom: 1px solid variable.$border-light;
+    font-size: 15px;
+  }
+
+  th {
+    background: lighten(variable.$background-light, 5%);
+    color: variable.$text-dark;
+    font-weight: 600;
+  }
+
+  tbody tr:hover {
+    background: variable.$table-hover;
+  }
+
+  img {
+    width: 44px;
+    height: 44px;
+    border-radius: 6px;
+    object-fit: cover;
+    border: 1px solid variable.$border-light;
+  }
+
+  /* Nút hành động */
+  .btn-edit, .btn-delete {
+    padding: 6px 14px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.2s;
+    margin-right: 8px;
+    color: #fff;
+  }
+
+  .btn-edit {
+    background: variable.$secondary-color;
+    &:hover { background: darken(variable.$secondary-color, 5%); }
+  }
+
+  .btn-delete {
+    background: variable.$danger-color;
+    &:hover { background: darken(variable.$danger-color, 5%); }
+  }
+}

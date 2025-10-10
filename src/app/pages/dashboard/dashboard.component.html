@@ -1,0 +1,41 @@
+  <div class="user-page">
+    <h2 class="title"> Danh sách người dùng</h2>
+
+    <!-- Form thêm/sửa người dùng -->
+    <form class="user-form" (ngSubmit)="onSubmit()" #userForm="ngForm">
+      <div class="form-grid">
+        <input [(ngModel)]="email" name="email" placeholder="Email" required>
+        <input [(ngModel)]="first_name" name="first_name" placeholder="First name" required>
+        <input [(ngModel)]="last_name" name="last_name" placeholder="Last name" required>
+        <input [(ngModel)]="avatar" name="avatar" placeholder="Avatar URL">
+      </div>
+      <button class="btn-submit" type="submit">
+        {{ editingUserId ? 'Cập nhật' : 'Thêm mới' }}
+      </button>
+    </form>
+
+    <!-- Bảng người dùng -->
+    <table class="user-table">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>First</th>
+          <th>Last</th>
+          <th>Avatar</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let u of users">
+          <td>{{u.email}}</td>
+          <td>{{u.first_name}}</td>
+          <td>{{u.last_name}}</td>  
+          <td><img [src]="u.avatar" alt="avatar"></td>
+          <td>
+            <button class="btn-edit" (click)="editUser(u)">Sửa</button>
+            <button class="btn-delete" (click)="deleteUser(u.id!)">Xóa</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

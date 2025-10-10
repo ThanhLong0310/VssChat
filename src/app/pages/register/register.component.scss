@@ -1,0 +1,210 @@
+    @use 'variables' as variable;
+
+    body {
+        margin: 0;
+        font-family: variable.$font;
+        background-color: variable.$bg;
+    }
+
+    .container {
+        display: flex;
+        height: 100vh;
+    }
+
+    .left-panel {
+        flex: 1.5;
+        background-color: variable.$bg;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .illustration {
+            width: 100%;
+            height: 100%;
+            position: relative;
+
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .illustration-text {
+                bottom: 0;
+                position: absolute;
+                left: 0;
+                right: 0;
+                text-align: center;
+
+                h1 {
+                    color: variable.$secondary-color;
+                    font-size: 2.5rem;
+                    margin-top: 20px;
+                    bottom: 0;
+
+                }
+
+                p {
+                    color: variable.$secondary-color;
+                    margin-top: 8px;
+                    bottom: 0;
+                }
+
+                .dots {
+                    margin-top: 20px;
+
+                    .dot {
+                        display: inline-block;
+                        width: 8px;
+                        height: 8px;
+                        margin: 0 4px;
+                        border-radius: 50%;
+                        background-color: variable.$secondary-color;
+
+                        &:hover {
+                            background-color: variable.$bg;
+                            border: variable.$secondary-color 2px solid;
+                            cursor: pointer;
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .right-panel {
+        flex: 1;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        #language-container {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 1rem;
+
+            #language-select {
+
+                color: variable.$bg-language;
+                cursor: pointer;
+                border: none;
+            }
+        }
+
+        .login-box {
+            background-color: variable.$bg;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: variable.$box-shadow;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+
+            .logo {
+                width: 150px;
+                margin-bottom: 20px;
+            }
+
+            h2 {
+                color: variable.$primary-color;
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+
+            .register-form {
+                width: 100%;
+                max-width: 400px;
+                padding: 40px;
+                background-color: variable.$bg;
+                border-radius: 12px;
+                box-shadow: variable.$box-shadow;
+                text-align: center;
+
+                .logo {
+                    width: 150px;
+                    margin-bottom: 20px;
+                }
+
+                h2 {
+                    color: variable.$primary-color;
+                    font-size: 1.5rem;
+                    margin-bottom: 20px;
+                }
+
+                form {
+                    display: flex;
+                    flex-direction: column;
+
+                    .form-row {
+                        display: flex;
+                        gap: 16px; // Khoảng cách giữa 2 input
+                        margin-bottom: 16px;
+
+                        input {
+                            flex: 1; // 2 input chia đều hàng
+                        }
+                    }
+
+                    input {
+                        padding: 12px;
+                        margin-bottom: 16px;
+                        border: 1px solid variable.$bg-language;
+                        border-radius: 6px;
+                    }
+
+                    button {
+                        background-color: variable.$primary-color;
+                        color: variable.$bg;
+                        border: none;
+                        padding: 12px;
+                        border-radius: 6px;
+                        font-size: 16px;
+                        cursor: pointer;
+
+                        &:hover {
+                            background-color: darken(variable.$primary-color, 5%);
+                        }
+                    }
+                }
+
+                .error {
+                    color: red;
+                    margin-top: 12px;
+                }
+
+                .success {
+                    color: green;
+                    margin-top: 12px;
+                }
+
+                a {
+                    color: variable.$secondary-color;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+
+            .signup {
+                margin-top: 20px;
+                font-size: 14px;
+
+                a {
+                    color: variable.$secondary-color;
+                    text-decoration: none;
+                    font-weight: 500;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+        }
+    }

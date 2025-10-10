@@ -1,0 +1,67 @@
+<div class="container">
+  <div class="left-panel">
+    <div class="illustration">
+      <img src="assets/images/background-img.png" alt="background" class="img" />
+      <div class="illustration-text">
+        <h1>Hệ thống quản lý chat đa nền tảng</h1>
+        <p>Tiết kiệm thời gian tư vấn và chăm sóc khách hàng</p>
+        <div class="dots">
+          <span class="dot active"></span>
+          <span class="dot active"></span>
+          <span class="dot active"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-panel">
+    <div id="language-container">
+      <img src="assets/icons/language.png" alt="global icon" class="icon-global" />
+      <select id="language-select" name="languages">
+        <option value="vi">Tiếng Việt</option>
+        <option value="en">Tiếng Anh</option>
+        <option value="jp">Tiếng Nhật</option>
+        <option value="cn">Tiếng Trung</option>
+      </select>
+    </div>
+
+    <div class="login-box">
+      <img src="assets/images/vss-chat.png" alt="VSS Logo" class="logo" />
+      <h2>Đăng nhập vào tài khoản của bạn</h2>
+
+      <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+        <input
+          type="text"
+          [(ngModel)]="email"
+          name="email"
+          placeholder="Nhập tài khoản"
+          required
+        />
+
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          [(ngModel)]="password"
+          name="password"
+          placeholder="Nhập mật khẩu"
+          required
+        />
+
+        <div class="options-row">
+          <label>
+            <input type="checkbox" (change)="togglePassword()" />
+            Hiển thị mật khẩu
+          </label>
+          <a routerLink="/forgot-password" class="forgot-password">Quên mật khẩu?</a>
+        </div>
+
+        <div id="error" style="color:red;">{{ errorMsg }}</div>
+        <button type="submit" [disabled]="loginForm.invalid">Đăng nhập</button>
+      </form>
+
+      <p class="sign-up">
+        Bạn chưa có tài khoản?
+        <a routerLink="/register" class="register-link">Đăng ký</a>
+      </p>
+    </div>
+  </div>
+</div>
