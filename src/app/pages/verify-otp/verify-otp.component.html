@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="left-panel">
+    <div class="illustration">
+      <img src="assets/images/background-img.png" alt="background" class="img" />
+      <div class="illustration-text">
+        <h1>Hệ thống quản lý chat đa nền tảng</h1>
+        <p>Tiết kiệm thời gian tư vấn và chăm sóc khách hàng</p>
+        <div class="dots">
+          <span class="dot active"></span>
+          <span class="dot active"></span>
+          <span class="dot active"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="right-panel">
+    <div id="language-container">
+      <img src="assets/icons/language.png" alt="global icon" class="icon-global" />
+      <select id="language-select" name="languages">
+        <option value="vi">Tiếng Việt</option>
+        <option value="en">Tiếng Anh</option>
+        <option value="jp">Tiếng Nhật</option>
+        <option value="cn">Tiếng Trung</option>
+      </select>
+    </div>
+
+    <div class="login-box otp-box">
+      
+      <div class="otp-header">
+        <a routerLink="/forgot-password" class="btn-back">
+          <i class="fas fa-chevron-left"></i> Quay lại
+        </a>
+        <span>Quên mật khẩu</span>
+      </div>
+
+      <div class="otp-body">
+        <div class="icon-area">
+          <img src="./assets/images/mail-sending.png" alt="Mail Icon" />
+        </div>
+        
+        <h2>Kiểm tra mail</h2>
+        <p class="desc">Chúng tôi đã gửi cho bạn mã xác nhận. Vui lòng kiểm tra mã trong email của bạn.</p>
+
+        <form (ngSubmit)="onVerify()" #otpForm="ngForm">
+          <div class="input-group-otp">
+            <input
+              type="text"
+              [(ngModel)]="otpCode"
+              name="otpCode"
+              placeholder="Nhập mã"
+              required
+              maxlength="6"
+            />
+            <span class="resend" (click)="resend()">Gửi lại mã</span>
+          </div>
+
+          <button type="submit" [disabled]="otpForm.invalid">Tiếp tục</button>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>

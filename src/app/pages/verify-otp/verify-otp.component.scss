@@ -1,0 +1,146 @@
+@use 'variables' as variable;
+
+// ============================================
+// PHẦN CODE CŨ CỦA BẠN (GIỮ NGUYÊN ĐỂ KHÔNG VỠ LAYOUT)
+// ============================================
+
+body { margin: 0; font-family: variable.$font; background-color: variable.$bg; }
+
+.container {
+    display: flex; height: 100vh; flex-direction: row;
+
+    @media (max-width: 992px) { .left-panel { flex: 1; } }
+    @media (max-width: 768px) {
+        flex-direction: column; height: auto; min-height: 100vh;
+        .left-panel { flex: none; height: 300px; width: 100%;
+            .illustration-text {
+                h1 { font-size: 1.8rem; }
+                p { font-size: 0.9rem; }
+            }
+        }
+        .right-panel { flex: none; width: 100%; padding: 40px 0;
+            #language-container { top: 10px; right: 15px; }
+            .login-box { width: 90%; box-shadow: none; padding: 20px; }
+        }
+    }
+    @media (max-width: 480px) {
+        .left-panel { display: none; }
+        .right-panel { align-items: flex-start; padding-top: 60px; }
+    }
+}
+
+.left-panel {
+    flex: 1.5; background-color: variable.$bg; display: flex; align-items: center; justify-content: center;
+    .illustration {
+        width: 100%; height: 100%; position: relative;
+        img { width: 100%; height: 100%; object-fit: cover; }
+        .illustration-text {
+            bottom: 0; position: absolute; left: 0; right: 0; text-align: center;
+            h1 { color: variable.$secondary-color; font-size: 2.5rem; margin-top: 20px; bottom: 0; }
+            p { color: variable.$secondary-color; margin-top: 8px; bottom: 0; }
+            .dots { margin-top: 20px;
+                .dot { display: inline-block; width: 8px; height: 8px; margin: 0 4px; border-radius: 50%; background-color: variable.$secondary-color;
+                    &:hover { background-color: variable.$bg; border: variable.$secondary-color 2px solid; cursor: pointer; }
+                }
+            }
+        }
+    }
+}
+
+.right-panel {
+    flex: 1; position: relative; display: flex; align-items: center; justify-content: center;
+    #language-container {
+        position: absolute; top: 20px; right: 30px; font-size: 1rem;
+        #language-select { color: variable.$bg-language; cursor: pointer; border: none; }
+    }
+
+    .login-box {
+        background-color: variable.$bg; padding: 40px; border-radius: 12px;
+        box-shadow: variable.$box-shadow; width: 80%; max-width: 400px; text-align: center;
+
+        // Các class cũ vẫn giữ để an toàn
+        .logo { width: 150px; margin-bottom: 20px; }
+        h2 { color: variable.$primary-color; font-size: 1.5rem; margin-bottom: 20px; }
+        form {
+            display: flex; flex-direction: column;
+            input { padding: 12px; margin-bottom: 16px; border: 1px solid variable.$bg-language; border-radius: 6px; }
+            button {
+                background-color: variable.$primary-color; color: variable.$bg; border: none; padding: 12px; border-radius: 6px; font-size: 16px; cursor: pointer;
+                &:hover { background-color: darken(variable.$primary-color, 5%); }
+            }
+        }
+    }
+}
+
+// ============================================
+// PHẦN STYLE MỚI CHO OTP (GHI ĐÈ LOGIC CŨ)
+// ============================================
+
+.login-box.otp-box {
+    padding: 0 !important; // Xóa padding để header đỏ tràn viền
+    overflow: hidden; // Bo góc cho header
+
+    .otp-header {
+        background-color: variable.$primary-color; // Dùng màu đỏ primary
+        padding: 15px 20px;
+        display: flex;
+        align-items: center;
+        color: white;
+
+        .btn-back {
+            color: white;
+            text-decoration: none;
+            font-size: 14px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            i { margin-right: 5px; }
+        }
+
+        span {
+            flex: 1;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+            margin-right: 30px; // Căn chỉnh lại cho giữa vì có nút back bên trái
+        }
+    }
+
+    .otp-body {
+        padding: 40px; // Thêm lại padding cho phần thân
+        text-align: center;
+
+        .icon-area img { width: 80px; margin-bottom: 20px; }
+        
+        h2 { margin-bottom: 10px; font-size: 22px; } // Màu đã có từ class h2 cũ
+        
+        .desc {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .input-group-otp {
+            position: relative;
+            margin-bottom: 20px;
+
+            input {
+                width: 100%;
+                box-sizing: border-box; // Để padding không làm vỡ layout
+                padding-right: 90px; // Chừa chỗ cho chữ Gửi lại mã
+            }
+
+            .resend {
+                position: absolute;
+                right: 12px;
+                top: 50%;
+                transform: translateY(-80%); // Căn giữa theo chiều dọc
+                font-size: 13px;
+                color: variable.$secondary-color;
+                cursor: pointer;
+                text-decoration: underline;
+            }
+        }
+    }
+}
