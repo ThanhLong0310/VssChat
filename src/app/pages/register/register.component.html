@@ -1,59 +1,127 @@
-<div class="register-container">
-    <div class="left-panel">
-        <div class="illustration">
-            <img src="./assets/images/background-img.png" alt="background" class="img" />
-            <div class="illustration-text">
-                <h1>Hệ thống quản lý chat đa nền tảng</h1>
-                <p>Tiết kiệm thời gian tư vấn và chăm sóc khách hàng</p>
-                <div class="dots">
-                    <span class="dot active"></span>
-                    <span class="dot active"></span>
-                    <span class="dot active"></span>
-                </div>
-            </div>
+<div class="container">
+  <div class="left-panel">
+    <div class="illustration">
+      <img src="assets/images/background-img.png" alt="background" class="img" />
+      <div class="illustration-text">
+        <h1>Hệ thống quản lý chat đa nền tảng</h1>
+        <p>Tiết kiệm thời gian tư vấn và chăm sóc khách hàng</p>
+        <div class="dots">
+          <span class="dot active"></span>
+          <span class="dot active"></span>
+          <span class="dot active"></span>
         </div>
+      </div>
     </div>
-    <div class="right-panel">
-  <div id="language-container">
-    <img src="./assets/icons/language.png" alt="global icon" class="icon-global">
-    <select id="language-select" name="languages">
-      <option value="tiếng việt">Tiếng Việt</option>
-      <option value="tiếng anh">Tiếng Anh</option>
-      <option value="tiếng nhật">Tiếng Nhật</option>
-      <option value="tiếng trung">Tiếng Trung</option>
-    </select>
   </div>
 
-  <div class="register-form">
-    <img src="./assets/images/vss-chat.png" alt="VSS Logo" class="logo" />
-    <h2>Đăng ký trải nghiệm</h2>
+  <div class="right-panel">
+    <div id="language-container">
+      <img src="assets/icons/language.png" alt="global icon" class="icon-global" />
+      <select id="language-select" name="languages">
+        <option value="vi">Tiếng Việt</option>
+        <option value="en">Tiếng Anh</option>
+        <option value="jp">Tiếng Nhật</option>
+        <option value="cn">Tiếng Trung</option>
+      </select>
+    </div>
 
-    <form (ngSubmit)="onSubmit()">
-      <!-- Họ + Tên -->
-      <div class="form-row">
-        <input type="text" [(ngModel)]="first_name" name="first_name" placeholder="Nhập họ của bạn" required>
-        <input type="text" [(ngModel)]="last_name" name="last_name" placeholder="Nhập tên của bạn" required>
-      </div>
+    <div class="register-box">
+      <img src="assets/images/vss-chat.png" alt="VSS Logo" class="logo" />
+      <h2>Đăng ký trải nghiệm</h2>
 
-      <!-- Quốc gia + Công ty -->
-      <div class="form-row">
-        <input type="text" [(ngModel)]="country" name="country" placeholder="Nhập quốc gia" required>
-        <input type="text" [(ngModel)]="company" name="company" placeholder="Nhập tên công ty" required>
-      </div>
+      <form (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm" novalidate>
+        
+        <div class="form-row">
+          <div class="form-group half">
+            <input type="text" [(ngModel)]="last_name" name="last_name" placeholder="Nhập họ của bạn" required 
+                   #lastName="ngModel" 
+                   [class.error-border]="(lastName.invalid && (lastName.dirty || lastName.touched || isSubmitted))" />
+            
+            <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched || isSubmitted)" class="error-msg">
+              <span *ngIf="lastName.errors?.['required']">Họ là bắt buộc</span>
+            </div>
+          </div>
 
-      <!-- Các input còn lại -->
-      <input type="email" [(ngModel)]="email" name="email" placeholder="Nhập email làm việc" required>
-      <input type="text" [(ngModel)]="field" name="field" placeholder="Nhập lĩnh vực" required>
-      <input type="text" [(ngModel)]="position" name="position" placeholder="Nhập vị trí làm việc" required>
-      <input type="text" [(ngModel)]="purpose" name="purpose" placeholder="Nhập mục đích" required>
-      <input type="password" [(ngModel)]="confirmPassword" name="confirmPassword" placeholder="Nhập lại mật khẩu" required>
+          <div class="form-group half">
+            <input type="text" [(ngModel)]="first_name" name="first_name" placeholder="Nhập tên của bạn" required 
+                   #firstName="ngModel"
+                   [class.error-border]="(firstName.invalid && (firstName.dirty || firstName.touched || isSubmitted))" />
+            
+            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched || isSubmitted)" class="error-msg">
+              <span *ngIf="firstName.errors?.['required']">Tên là bắt buộc</span>
+            </div>
+          </div>
+        </div>
 
-      <button type="submit">Đăng ký</button>
-    </form>
+        <div class="form-group">
+          <input type="email" [(ngModel)]="email" name="email" placeholder="Nhập email làm việc" required email 
+                 #emailCtrl="ngModel"
+                 [class.error-border]="(emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched || isSubmitted))" />
+          
+          <div *ngIf="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched || isSubmitted)" class="error-msg">
+            <span *ngIf="emailCtrl.errors?.['required']">Email là bắt buộc</span>
+            <span *ngIf="emailCtrl.errors?.['email']">Email không đúng định dạng</span>
+          </div>
+        </div>
 
-    <p *ngIf="errorMsg" class="error">{{ errorMsg }}</p>
-    <p *ngIf="successMsg" class="success">{{ successMsg }}</p>
+        <div class="form-row">
+          <div class="form-group half">
+            <input type="text" [(ngModel)]="company" name="company" placeholder="Nhập tên công ty" required 
+                   #companyCtrl="ngModel"
+                   [class.error-border]="(companyCtrl.invalid && (companyCtrl.dirty || companyCtrl.touched || isSubmitted))"/>
+             <div *ngIf="companyCtrl.invalid && (companyCtrl.dirty || companyCtrl.touched || isSubmitted)" class="error-msg">
+                <span>Vui lòng nhập công ty</span>
+             </div>
+          </div>
 
-    <p>Bạn đã có tài khoản? <a routerLink="/login">Đăng nhập</a></p>
+          <div class="form-group half">
+            <select [(ngModel)]="country" name="country" required 
+                    #countryCtrl="ngModel"
+                    [class.error-border]="(countryCtrl.invalid && (countryCtrl.dirty || countryCtrl.touched || isSubmitted))">
+              <option value="" disabled selected>Quốc gia</option>
+              <option value="vn">Việt Nam</option>
+              <option value="us">US</option>
+              <option value="jp">Nhật Bản</option>
+              <option value="cn">Trung Quốc</option>
+              <option value="uk">Anh Quốc</option>
+            </select>
+            <div *ngIf="countryCtrl.invalid && (countryCtrl.dirty || countryCtrl.touched || isSubmitted)" class="error-msg">
+              <span>Chọn quốc gia</span>
+           </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <select [(ngModel)]="field" name="field" required 
+                  #fieldCtrl="ngModel"
+                  [class.error-border]="(fieldCtrl.invalid && (fieldCtrl.dirty || fieldCtrl.touched || isSubmitted))">
+            <option value="" disabled selected>Nhập lĩnh vực</option>
+            <option value="it">Công nghệ</option>
+            <option value="sale">Kinh doanh</option>
+            <option value="education">Giáo dục</option>
+            <option value="finance">Tài chính</option>
+            <option value="healthcare">Y tế</option>
+          </select>
+          <div *ngIf="fieldCtrl.invalid && (fieldCtrl.dirty || fieldCtrl.touched || isSubmitted)" class="error-msg">
+            <span>Vui lòng chọn lĩnh vực</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input type="text" [(ngModel)]="position" name="position" placeholder="Vị trí làm việc" />
+        </div>
+
+        <div class="form-group">
+          <input type="text" [(ngModel)]="purpose" name="purpose" placeholder="Mục đích bạn đến với website" />
+        </div>
+
+        <button type="submit">Đăng ký</button>
+      </form>
+
+      <p class="sign-up">
+        Bạn đã có tài khoản?
+        <a routerLink="/login" class="register-link">Đăng nhập</a>
+      </p>
+    </div>
   </div>
 </div>
