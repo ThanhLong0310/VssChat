@@ -1,122 +1,291 @@
-@use 'variables' as variable;
+@use '../../../assets/scss/variables' as variable;
 
+// Reset cơ bản cho component này
+* {
+  box-sizing: border-box;
+}
 
 .user-page {
-  padding: 20px;
+  padding: 30px 15px;
   background-color: variable.$background-light;
   min-height: 100vh;
+  font-family: Arial, sans-serif;
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
 
   .title {
     text-align: center;
     color: variable.$text-dark;
-    font-size: 24px;
-    font-weight: 600;
-    margin-bottom: 25px;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 30px;
   }
 }
 
-/* Form */
+/* --- THÔNG BÁO ALERT --- */
+.alert {
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  
+  &-danger {
+    background-color: #ffe6e6;
+    color: variable.$danger-color;
+    border: 1px solid rgba(variable.$danger-color, 0.2);
+  }
+  
+  &-success {
+    background-color: #e6ffed;
+    color: #28a745;
+    border: 1px solid rgba(#28a745, 0.2);
+  }
+}
+
+/* --- FORM --- */
 .user-form {
-  max-width: 850px;
-  margin: 0 auto 30px;
-  padding: 24px;
   background: variable.$surface-color;
+  padding: 25px;
   border-radius: 12px;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  margin-bottom: 40px;
+
+  .form-header h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: variable.$text-dark;
+    border-bottom: 1px solid variable.$border-light;
+    padding-bottom: 10px;
+  }
 
   .form-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
+    // Tự động xuống dòng khi màn hình nhỏ (< 250px thì rớt xuống 1 cột)
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+
+    label {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: variable.$text-dark;
+
+      .required {
+        color: variable.$danger-color;
+      }
+    }
 
     input {
-      padding: 12px;
+      padding: 12px 15px;
       border: 1px solid variable.$border-light;
-      border-radius: 6px;
+      border-radius: 8px;
       font-size: 15px;
-      transition: 0.2s ease;
+      transition: all 0.3s ease;
+      background-color: #fafafa;
 
       &:focus {
+        background-color: #fff;
         border-color: variable.$primary-color;
         outline: none;
-        box-shadow: 0 0 0 2px rgba(variable.$primary-color, 0.2);
+        box-shadow: 0 0 0 3px rgba(variable.$primary-color, 0.15);
+      }
+
+      // Khi input bị lỗi và người dùng đã click vào
+      &.ng-invalid.ng-touched {
+        border-color: variable.$danger-color;
+        background-color: #fffaf9;
       }
     }
   }
 
-  .btn-submit {
-    margin-top: 18px;
-    width: 100%;
-    padding: 14px;
-    background: variable.$primary-color;
-    color: #fff;
-    font-size: 16px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: 0.3s;
+  .form-actions {
+    margin-top: 25px;
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end; // Đẩy nút về bên phải
 
-    &:hover {
-      background: darken(variable.$primary-color, 5%);
+    .btn {
+      padding: 12px 24px;
+      font-size: 15px;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+    }
+
+    .btn-submit {
+      background: variable.$primary-color;
+      color: #fff;
+      min-width: 120px;
+
+      &:hover:not(:disabled) {
+        background: darken(variable.$primary-color, 8%);
+        transform: translateY(-1px);
+      }
+    }
+
+    .btn-cancel {
+      background: #e4e6eb;
+      color: #4b4f56;
+
+      &:hover {
+        background: #d8dadf;
+      }
     }
   }
 }
 
-/* Table */
-.user-table {
-  width: 95%;
-  max-width: 1000px;
-  margin: 0 auto;
-  border-collapse: collapse;
+/* --- TABLE CARD --- */
+.table-card {
   background: variable.$surface-color;
   border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   overflow: hidden;
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
 
-  th, td {
-    padding: 14px 18px;
-    text-align: left;
+  .table-header {
+    padding: 20px 25px;
     border-bottom: 1px solid variable.$border-light;
-    font-size: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h3 {
+      margin: 0;
+      font-size: 18px;
+      color: variable.$text-dark;
+    }
+
+    .badge {
+      background: rgba(variable.$primary-color, 0.1);
+      color: variable.$primary-color;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+    }
   }
 
-  th {
-    background: lighten(variable.$background-light, 5%);
-    color: variable.$text-dark;
-    font-weight: 600;
+  /* QUAN TRỌNG: Giúp bảng cuộn ngang trên điện thoại */
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
-  tbody tr:hover {
-    background: variable.$table-hover;
+  .user-table {
+    width: 100%;
+    min-width: 600px; // Ép bảng có độ rộng tối thiểu để không bị bóp méo chữ
+    border-collapse: collapse;
+
+    th, td {
+      padding: 16px 20px;
+      text-align: left;
+      border-bottom: 1px solid variable.$border-light;
+      vertical-align: middle;
+    }
+
+    th {
+      background: #f8f9fa;
+      color: #5f6368;
+      font-weight: 600;
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    tbody tr {
+      transition: background 0.2s;
+      
+      &:hover {
+        background: rgba(variable.$primary-color, 0.03);
+      }
+      
+      &:last-child td {
+        border-bottom: none;
+      }
+    }
+
+    .avatar-img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%; // Avatar tròn chuyên nghiệp hơn
+      object-fit: cover;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    /* Tiện ích text */
+    .font-weight-medium { font-weight: 600; color: variable.$text-dark; }
+    .text-muted { color: #6c757d; }
+    .text-center { text-align: center; }
+    .py-4 { padding-top: 30px; padding-bottom: 30px; }
+
+    /* Nút hành động */
+    .actions-cell {
+      white-space: nowrap; // Không cho nút rớt dòng
+    }
+
+    .btn-icon {
+      padding: 8px 12px;
+      font-size: 13px;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+      margin: 0 4px;
+
+      &.btn-edit {
+        background: rgba(variable.$secondary-color, 0.1);
+        color: variable.$secondary-color;
+        &:hover { background: variable.$secondary-color; color: #fff; }
+      }
+
+      &.btn-delete {
+        background: rgba(variable.$danger-color, 0.1);
+        color: variable.$danger-color;
+        &:hover { background: variable.$danger-color; color: #fff; }
+      }
+    }
+  }
+}
+
+/* --- RESPONSIVE MEDIA QUERIES --- */
+@media (max-width: 768px) {
+  .user-page {
+    padding: 15px 10px; // Thu nhỏ padding trên mobile
   }
 
-  img {
-    width: 44px;
-    height: 44px;
-    border-radius: 6px;
-    object-fit: cover;
-    border: 1px solid variable.$border-light;
-  }
-
-  /* Nút hành động */
-  .btn-edit, .btn-delete {
-    padding: 6px 14px;
-    font-size: 14px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: 0.2s;
-    margin-right: 8px;
-    color: #fff;
-  }
-
-  .btn-edit {
-    background: variable.$secondary-color;
-    &:hover { background: darken(variable.$secondary-color, 5%); }
-  }
-
-  .btn-delete {
-    background: variable.$danger-color;
-    &:hover { background: darken(variable.$danger-color, 5%); }
+  .user-form {
+    padding: 15px;
+    
+    .form-grid {
+      grid-template-columns: 1fr; // Ép thành 1 cột trên màn nhỏ
+    }
+    
+    .form-actions {
+      flex-direction: column; // Các nút xếp dọc
+      
+      .btn {
+        width: 100%;
+      }
+    }
   }
 }

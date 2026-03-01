@@ -1,64 +1,95 @@
-  import { Component, ViewChild } from '@angular/core';
-  import { Router } from '@angular/router';
-  import { HttpClient } from '@angular/common/http';
-  import { NgForm } from '@angular/forms'; // Import NgForm
+import { Component, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
-  @Component({
-    selector: 'app-login',
-    templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss']
-  })
-  export class LoginComponent {
-    @ViewChild('loginForm') loginForm!: NgForm; // Để truy cập form từ TS
+@Component({
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
+})
+export class LoginComponent {
+  // Lấy tham chiếu đến form để thao tác validation
+  @ViewChild('loginForm') loginForm!: NgForm;
 
-    email: string = '';
-    password: string = '';
-    showPassword: boolean = false;
-    
-    // Logic validate
-    isSubmitted = false; // Biến cờ để biết đã bấm submit chưa
-    errorMsg: string = '';
-    failedAttempts: number = 0;
-    MAX_ATTEMPTS: number = 5;
+  // --- DỮ LIỆU FORM ---
+  email: string = '';
+  password: string = '';
+  rememberMe: boolean = false; // Thêm chức năng ghi nhớ
+  
+  // --- TRẠNG THÁI GIAO DIỆN ---
+  showPassword: boolean = false;
+  isSubmitted: boolean = false;
+  isLoading: boolean = false;
+  errorMsg: string = '';
 
-    constructor(private router: Router, private http: HttpClient) {}
+  // --- BẢO MẬT ---
+  failedAttempts: number = 0;
+  readonly MAX_ATTEMPTS: number = 5;
 
-    togglePassword() {
-      this.showPassword = !this.showPassword;
+  constructor(
+    private router: Router, 
+    private http: HttpClient
+  ) {}
+
+  /**
+   * Chuyển đổi trạng thái hiển thị mật khẩu
+   */
+  togglePassword(): void {
+    this.showPassword = !this.showPassword;
+  }
+
+  /**
+   * Xử lý sự kiện khi người dùng bấm Đăng nhập
+   */
+  onSubmit(): void {
+    this.isSubmitted = true;
+    this.errorMsg = '';
+
+    // 1. Kiểm tra validation của HTML Form
+    if (this.loginForm.invalid) {
+      return; 
     }
 
-    onSubmit() {
-      // 1. Đánh dấu là đã submit để HTML hiển thị lỗi đỏ nếu có
-      this.isSubmitted = true;
+    // 2. Kiểm tra số lần nhập sai
+    if (this.failedAttempts >= this.MAX_ATTEMPTS) {
+      this.errorMsg = 'Bạn đã nhập sai quá 5 lần. Vui lòng thử lại sau.';
+      return;
+    }
 
-      // 2. Kiểm tra nếu form Angular không hợp lệ (trường required bị trống)
-      if (this.loginForm.invalid) {
-        return; 
-      }
+    // 3. Thực hiện gọi API
+    this.performLogin();
+  }
 
-      // 3. Reset thông báo lỗi API cũ
-      this.errorMsg = '';
+  /**
+   * Gọi API Đăng nhập
+   */
+  private performLogin(): void {
+    this.isLoading = true; // Bật trạng thái loading (khóa nút bấm)
 
-      // ... (Giữ nguyên logic kiểm tra logic nghiệp vụ của bạn) ...
-      if (this.failedAttempts >= this.MAX_ATTEMPTS) {
-        this.errorMsg = 'Bạn đã nhập sai quá 5 lần.';
-        return;
-      }
+    const loginData = {
+      email: this.email,
+      password: this.password
+    };
 
-      // 🔹 Gọi API login (Giữ nguyên code của bạn)
-      this.http.post('https://68c3cd8a81ff90c8e61a1881.mockapi.io/users/user', {
-        email: this.email,
-        password: this.password
-      }).subscribe({
+    // LƯU Ý: Trong dự án thực tế, bạn nên chuyển đoạn this.http.post này sang AuthService
+    this.http.post('https://68c3cd8a81ff90c8e61a1881.mockapi.io/users/user', loginData)
+      .subscribe({
         next: (res: any) => {
-          // ... logic thành công
+          this.isLoading = false;
+          
+          // Giả lập lưu token nếu có (res.token)
+          // localStorage.setItem('token', res.token);
+          
+          // Chuyển hướng thành công
           this.router.navigate(['/dashboard']); 
         },
-        error: () => {
-          // ... logic thất bại
+        error: (err) => {
+          this.isLoading = false;
           this.failedAttempts++;
-          this.errorMsg = 'Sai tài khoản hoặc mật khẩu!';
+          this.errorMsg = `Sai tài khoản hoặc mật khẩu! (Lần ${this.failedAttempts}/${this.MAX_ATTEMPTS})`;
+          console.error('Lỗi đăng nhập:', err);
         }
       });
-    }
   }
+}

@@ -1,300 +1,212 @@
 @use '../../../assets/scss/variables' as variable;
 
-body {
-    margin: 0;
-    font-family: variable.$font;
-    background-color: variable.$bg;
-}
-
 :host {
-    display: block;
-    height: 100vh;
-    overflow: hidden; // Khóa cuộn trang chính
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  font-family: variable.$font, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+  background-color: variable.$bg;
+
+  * {
+    font-family: inherit;
+  }
 }
 
 .container {
-    display: flex;
-    height: 100vh;
-    flex-direction: row;
+  display: flex;
+  height: 100%;
+  flex-direction: row;
 
-    // --- RESPONSIVE ---
-    @media (max-width: 992px) {
-        .left-panel {
-            flex: 1;
-        }
+  // --- RESPONSIVE MEDIA QUERIES ---
+  @media (max-width: 992px) {
+    .left-panel { flex: 1; }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    :host { height: auto; overflow: visible; }
+    height: auto;
+    min-height: 100vh;
+
+    .left-panel {
+      flex: none; height: 250px; width: 100%;
+      .illustration__text { display: none; }
     }
 
-    @media (max-width: 768px) {
-        flex-direction: column;
-        height: auto;
-
-        // Mobile cho phép cuộn
-        overflow-y: auto;
-
-        .left-panel {
-            flex: none;
-            height: 250px;
-            width: 100%;
-
-            .illustration-text {
-                display: none;
-            }
-        }
-
-        .right-panel {
-            flex: none;
-            width: 100%;
-            padding: 40px 0;
-            height: auto;
-
-            .register-box {
-                width: 90%;
-                box-shadow: none; // Mobile bỏ shadow cho gọn
-                padding: 20px;
-            }
-        }
+    .right-panel {
+      flex: none; width: 100%; padding: 40px 0; height: auto; overflow-y: visible;
+      .language-selector { top: 10px; right: 15px; }
+      .register-box { width: 90%; box-shadow: none; padding: 20px; }
     }
+  }
 
-    @media (max-width: 480px) {
-        .left-panel {
-            display: none;
-        }
-    }
+  @media (max-width: 480px) {
+    .left-panel { display: none; }
+    .right-panel { padding-top: 60px; }
+  }
 }
 
-// --- LEFT PANEL (Y HỆT LOGIN) ---
+// --- CỘT TRÁI (LEFT PANEL) ---
 .left-panel {
-    flex: 1.5;
-    background-color: variable.$bg;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  flex: 1.5;
+  background-color: variable.$bg;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    .illustration {
-        width: 100%;
-        height: 100%;
-        position: relative;
+  .illustration {
+    width: 100%; height: 100%; position: relative;
 
-        img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+    &__img { width: 100%; height: 100%; object-fit: cover; }
 
-        .illustration-text {
-            bottom: 40px;
-            position: absolute;
-            left: 0;
-            right: 0;
-            text-align: center;
-
-            h1 {
-                color: variable.$secondary-color;
-                font-size: 2.2rem;
-                margin-bottom: 10px;
-            }
-
-            p {
-                color: variable.$secondary-color;
-            }
-
-            .dots {
-                margin-top: 20px;
-
-                .dot {
-                    display: inline-block;
-                    width: 8px;
-                    height: 8px;
-                    margin: 0 4px;
-                    border-radius: 50%;
-                    background-color: variable.$secondary-color;
-                }
-            }
-        }
+    // ĐOẠN FONT CHỮ ĐÃ ĐƯỢC CHỐT CỨNG CHUẨN ĐỂ ĐỒNG BỘ
+    &__text {
+      position: absolute; 
+      bottom: 40px; 
+      left: 0; 
+      right: 0; 
+      text-align: center;
+      padding: 0 20px; 
+      
+      h1 { 
+        color: variable.$secondary-color; 
+        font-size: 2.25rem !important; 
+        font-weight: 700 !important;   
+        line-height: 1.4;              
+        margin-bottom: 12px; 
+        margin-top: 0;
+      }
+      p { 
+        color: variable.$secondary-color; 
+        font-size: 1.1rem !important;  
+        font-weight: 400 !important; 
+        line-height: 1.5;
+        margin: 0;
+      }
     }
+
+    &__dots {
+      margin-top: 25px;
+      position: absolute;
+      bottom: 15px; // Giữ nguyên vị trí các dấu chấm
+      left: 0;
+      right: 0;
+      text-align: center;
+
+      .dot {
+        display: inline-block; width: 8px; height: 8px; margin: 0 4px;
+        border-radius: 50%; background-color: variable.$secondary-color;
+        transition: 0.3s;
+        
+        &:hover, &.active {
+          background-color: variable.$bg;
+          border: variable.$secondary-color 2px solid;
+          cursor: pointer;
+        }
+      }
+    }
+  }
 }
 
-// --- RIGHT PANEL (CHỈNH SỬA CHO FORM ĐĂNG KÝ) ---
+// --- CỘT PHẢI (RIGHT PANEL) ---
 .right-panel {
-    flex: 1;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    background: #fff;
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  height: 100%;
+  overflow-y: auto;
 
-    // Quan trọng: Để form dài không bị cắt mất trên màn hình bé
-    overflow-y: auto;
+  .language-selector {
+    position: absolute; top: 20px; right: 30px; z-index: 10;
+    display: flex; align-items: center; gap: 5px;
 
-    #language-container {
-        position: absolute;
-        top: 20px;
-        right: 30px;
-        font-size: 1rem;
-        z-index: 10;
-        display: flex;
-        align-items: center;
+    &__icon { width: 20px; }
+    select {
+      border: none; outline: none; cursor: pointer; color: #555;
+      background: transparent; font-size: 1rem;
+    }
+  }
 
-        .icon-global {
-            width: 20px;
-            margin-right: 5px;
-        }
+  .register-box {
+    background-color: #fff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    box-shadow: variable.$box-shadow;
+    width: 80%;
+    max-width: 450px;
+    text-align: center;
+    margin: 40px 0; 
 
-        #language-select {
-            border: none;
-            outline: none;
-            cursor: pointer;
-            color: #555;
-            background: transparent;
-        }
+    &__logo { width: 130px; margin-bottom: 15px; }
+    &__title { color: variable.$primary-color; font-size: 1.4rem; margin-bottom: 20px; font-weight: 700; }
+
+    .alert {
+      padding: 10px; border-radius: 6px; margin-bottom: 15px; font-size: 14px;
+      &--danger { background-color: #ffe6e6; color: variable.$danger-color; border: 1px solid rgba(variable.$danger-color, 0.2); }
+      &--success { background-color: #e6ffed; color: #28a745; border: 1px solid rgba(#28a745, 0.2); }
     }
 
-    // --- HỘP ĐĂNG KÝ (STYLE GIỐNG LOGIN BOX CỦA BẠN) ---
-    .register-box {
-        background-color: #fff;
-        padding: 30px 40px; // Padding y hệt mẫu
-        border-radius: 12px;
-        box-shadow: variable.$box-shadow; // Shadow giống login
-        width: 80%;
-        max-width: 450px; // Tăng nhẹ so với 400px của login để chia đôi cột đẹp hơn
-        text-align: center;
-        margin: 40px 0; // Margin để khi cuộn không bị sát mép
-
-        .logo {
-            width: 130px;
-            margin-bottom: 15px;
-        }
-
-        h2 {
-            color: variable.$primary-color;
-            font-size: 1.4rem;
-            margin-bottom: 20px;
-            font-weight: 700;
-        }
-
-        form {
-            display: flex;
-            flex-direction: column;
-
-            // Class mới để chia đôi dòng
-            .form-row {
-                display: flex;
-                gap: 10px;
-                width: 100%;
-
-                .half {
-                    flex: 1;
-                }
-            }
-
-            .form-group {
-                margin-bottom: 12px; // GIẢM xuóng 12px (Login là 20px) để form ngắn lại
-                text-align: left;
-                width: 100%;
-
-                input,
-                select {
-                    width: 100%;
-                    padding: 10px 15px;
-                    border: 1px solid #ccc;
-                    border-radius: 8px;
-                    font-size: 14px;
-                    outline: none;
-                    box-sizing: border-box;
-                    transition: all 0.3s;
-                    background: #fff;
-
-                    &:focus {
-                        border-color: variable.$secondary-color;
-                        box-shadow: 0 0 0 2px rgba(variable.$secondary-color, 0.2);
-                    }
-
-                    &.error-border {
-                        border-color: variable.$danger-color !important; // Thay vì mã màu cứng
-                        background-color: #fff5f5;
-
-                        &:focus {
-                            box-shadow: 0 0 0 2px rgba(variable.$danger-color, 0.2) !important;
-                        }
-                    }
-
-                }
-
-                select {
-                    // Fix mũi tên select
-                    appearance: none;
-                    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-                    background-repeat: no-repeat;
-                    background-position: right 10px center;
-                    background-size: 12px;
-                }
-            }
-
-            button {
-                background-color: variable.$primary-color;
-                color: #fff;
-                padding: 12px;
-                border: none;
-                border-radius: 8px;
-                font-size: 16px;
-                font-weight: bold;
-                cursor: pointer;
-                margin-top: 10px;
-                transition: background 0.3s;
-
-                &:hover {
-                    opacity: 0.9;
-                }
-            }
-
-            .error-msg {
-                color: variable.$danger-color; // Chuẩn biến của bạn
-                font-size: 13px;
-                margin-top: 5px;
-                padding-left: 2px;
-                font-weight: 500;
-                display: block; // Xuống dòng nằm dưới input
-            }
-        }
-
-        .sign-up {
-            margin-top: 15px;
-            font-size: 13px;
-
-            .register-link {
-                color: variable.$secondary-color;
-                text-decoration: none;
-                font-weight: 500;
-
-                &:hover {
-                    text-decoration: underline;
-                }
-            }
-        }
-
-        .register-box form {
-
-            // Style cho dòng thông báo lỗi
-            .error-msg {
-                color: #e74c3c; // Màu đỏ
-                font-size: 12px;
-                margin-top: 4px;
-                margin-left: 2px;
-                text-align: left;
-                display: block;
-            }
-
-            // Style cho ô input khi bị lỗi (viền đỏ)
-            input.error-border,
-            select.error-border {
-                border-color: #e74c3c !important;
-                background-color: #fff5f5; // Nền hồng nhạt
-
-                &:focus {
-                    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
-                }
-            }
-        }
+    .form-row {
+      display: flex; gap: 12px; width: 100%;
     }
+
+    .form-group {
+      margin-bottom: 15px; text-align: left; width: 100%;
+
+      &--half { flex: 1; }
+
+      input, select {
+        width: 100%; padding: 12px 15px;
+        border: 1px solid #ccc; border-radius: 8px; font-size: 14px;
+        outline: none; box-sizing: border-box; transition: all 0.3s; background: #fff;
+
+        &:focus {
+          border-color: variable.$secondary-color;
+          box-shadow: 0 0 0 2px rgba(variable.$secondary-color, 0.2);
+        }
+
+        &.error-border {
+          border-color: variable.$danger-color !important;
+          background-color: #fff5f5;
+          &:focus { box-shadow: 0 0 0 2px rgba(variable.$danger-color, 0.2) !important; }
+        }
+      }
+
+      select {
+        appearance: none; 
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 10px center;
+        background-size: 14px;
+      }
+
+      &__error {
+        color: variable.$danger-color;
+        font-size: 13px; margin-top: 5px; padding-left: 5px; font-weight: 500;
+        display: block;
+      }
+    }
+
+    .btn-submit {
+      width: 100%; background-color: variable.$primary-color; color: #fff;
+      padding: 14px; border: none; border-radius: 8px;
+      font-size: 16px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s;
+
+      &:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
+      &:disabled { background-color: #a0a0a0; cursor: not-allowed; }
+    }
+
+    .sign-up {
+      margin-top: 20px; font-size: 14px; color: #555;
+
+      &__link {
+        color: variable.$secondary-color; text-decoration: none; font-weight: 600; margin-left: 5px;
+        &:hover { text-decoration: underline; }
+      }
+    }
+  }
 }

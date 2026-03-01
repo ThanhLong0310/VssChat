@@ -1,11 +1,11 @@
 <div class="container">
   <div class="left-panel">
     <div class="illustration">
-      <img src="assets/images/background-img.png" alt="background" class="img" />
-      <div class="illustration-text">
+      <img src="assets/images/background-img.png" alt="background" class="illustration__img" />
+      <div class="illustration__text">
         <h1>Hệ thống quản lý chat đa nền tảng</h1>
         <p>Tiết kiệm thời gian tư vấn và chăm sóc khách hàng</p>
-        <div class="dots">
+        <div class="illustration__dots">
           <span class="dot active"></span>
           <span class="dot active"></span>
           <span class="dot active"></span>
@@ -15,9 +15,9 @@
   </div>
 
   <div class="right-panel">
-    <div id="language-container">
-      <img src="assets/icons/language.png" alt="global icon" class="icon-global" />
-      <select id="language-select" name="languages">
+    <div class="language-selector">
+      <img src="assets/icons/language.png" alt="global icon" class="language-selector__icon" />
+      <select id="language-select" name="languages" aria-label="Chọn ngôn ngữ">
         <option value="vi">Tiếng Việt</option>
         <option value="en">Tiếng Anh</option>
         <option value="jp">Tiếng Nhật</option>
@@ -26,29 +26,30 @@
     </div>
 
     <div class="register-box">
-      <img src="assets/images/vss-chat.png" alt="VSS Logo" class="logo" />
-      <h2>Đăng ký trải nghiệm</h2>
+      <img src="assets/images/vss-chat.png" alt="VSS Logo" class="register-box__logo" />
+      <h2 class="register-box__title">Đăng ký trải nghiệm</h2>
 
-      <form (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm" novalidate>
+      <div *ngIf="errorMsg" class="alert alert--danger">{{ errorMsg }}</div>
+      <div *ngIf="successMsg" class="alert alert--success">{{ successMsg }}</div>
+
+      <form class="register-form" (ngSubmit)="onSubmit()" #registerForm="ngForm" novalidate>
         
         <div class="form-row">
-          <div class="form-group half">
+          <div class="form-group form-group--half">
             <input type="text" [(ngModel)]="last_name" name="last_name" placeholder="Nhập họ của bạn" required 
                    #lastName="ngModel" 
-                   [class.error-border]="(lastName.invalid && (lastName.dirty || lastName.touched || isSubmitted))" />
-            
-            <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched || isSubmitted)" class="error-msg">
-              <span *ngIf="lastName.errors?.['required']">Họ là bắt buộc</span>
+                   [class.error-border]="lastName.invalid && (lastName.dirty || lastName.touched || isSubmitted)" />
+            <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched || isSubmitted)" class="form-group__error">
+              <span *ngIf="lastName.errors?.['required']">Họ là bắt buộc.</span>
             </div>
           </div>
 
-          <div class="form-group half">
+          <div class="form-group form-group--half">
             <input type="text" [(ngModel)]="first_name" name="first_name" placeholder="Nhập tên của bạn" required 
                    #firstName="ngModel"
-                   [class.error-border]="(firstName.invalid && (firstName.dirty || firstName.touched || isSubmitted))" />
-            
-            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched || isSubmitted)" class="error-msg">
-              <span *ngIf="firstName.errors?.['required']">Tên là bắt buộc</span>
+                   [class.error-border]="firstName.invalid && (firstName.dirty || firstName.touched || isSubmitted)" />
+            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched || isSubmitted)" class="form-group__error">
+              <span *ngIf="firstName.errors?.['required']">Tên là bắt buộc.</span>
             </div>
           </div>
         </div>
@@ -56,28 +57,27 @@
         <div class="form-group">
           <input type="email" [(ngModel)]="email" name="email" placeholder="Nhập email làm việc" required email 
                  #emailCtrl="ngModel"
-                 [class.error-border]="(emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched || isSubmitted))" />
-          
-          <div *ngIf="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched || isSubmitted)" class="error-msg">
-            <span *ngIf="emailCtrl.errors?.['required']">Email là bắt buộc</span>
-            <span *ngIf="emailCtrl.errors?.['email']">Email không đúng định dạng</span>
+                 [class.error-border]="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched || isSubmitted)" />
+          <div *ngIf="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched || isSubmitted)" class="form-group__error">
+            <span *ngIf="emailCtrl.errors?.['required']">Email là bắt buộc.</span>
+            <span *ngIf="emailCtrl.errors?.['email']">Email không đúng định dạng.</span>
           </div>
         </div>
 
         <div class="form-row">
-          <div class="form-group half">
+          <div class="form-group form-group--half">
             <input type="text" [(ngModel)]="company" name="company" placeholder="Nhập tên công ty" required 
                    #companyCtrl="ngModel"
-                   [class.error-border]="(companyCtrl.invalid && (companyCtrl.dirty || companyCtrl.touched || isSubmitted))"/>
-             <div *ngIf="companyCtrl.invalid && (companyCtrl.dirty || companyCtrl.touched || isSubmitted)" class="error-msg">
-                <span>Vui lòng nhập công ty</span>
-             </div>
+                   [class.error-border]="companyCtrl.invalid && (companyCtrl.dirty || companyCtrl.touched || isSubmitted)"/>
+            <div *ngIf="companyCtrl.invalid && (companyCtrl.dirty || companyCtrl.touched || isSubmitted)" class="form-group__error">
+              <span>Vui lòng nhập công ty.</span>
+            </div>
           </div>
 
-          <div class="form-group half">
+          <div class="form-group form-group--half">
             <select [(ngModel)]="country" name="country" required 
                     #countryCtrl="ngModel"
-                    [class.error-border]="(countryCtrl.invalid && (countryCtrl.dirty || countryCtrl.touched || isSubmitted))">
+                    [class.error-border]="countryCtrl.invalid && (countryCtrl.dirty || countryCtrl.touched || isSubmitted)">
               <option value="" disabled selected>Quốc gia</option>
               <option value="vn">Việt Nam</option>
               <option value="us">US</option>
@@ -85,16 +85,16 @@
               <option value="cn">Trung Quốc</option>
               <option value="uk">Anh Quốc</option>
             </select>
-            <div *ngIf="countryCtrl.invalid && (countryCtrl.dirty || countryCtrl.touched || isSubmitted)" class="error-msg">
-              <span>Chọn quốc gia</span>
-           </div>
+            <div *ngIf="countryCtrl.invalid && (countryCtrl.dirty || countryCtrl.touched || isSubmitted)" class="form-group__error">
+              <span>Vui lòng chọn quốc gia.</span>
+            </div>
           </div>
         </div>
 
         <div class="form-group">
           <select [(ngModel)]="field" name="field" required 
                   #fieldCtrl="ngModel"
-                  [class.error-border]="(fieldCtrl.invalid && (fieldCtrl.dirty || fieldCtrl.touched || isSubmitted))">
+                  [class.error-border]="fieldCtrl.invalid && (fieldCtrl.dirty || fieldCtrl.touched || isSubmitted)">
             <option value="" disabled selected>Nhập lĩnh vực</option>
             <option value="it">Công nghệ</option>
             <option value="sale">Kinh doanh</option>
@@ -102,8 +102,8 @@
             <option value="finance">Tài chính</option>
             <option value="healthcare">Y tế</option>
           </select>
-          <div *ngIf="fieldCtrl.invalid && (fieldCtrl.dirty || fieldCtrl.touched || isSubmitted)" class="error-msg">
-            <span>Vui lòng chọn lĩnh vực</span>
+          <div *ngIf="fieldCtrl.invalid && (fieldCtrl.dirty || fieldCtrl.touched || isSubmitted)" class="form-group__error">
+            <span>Vui lòng chọn lĩnh vực.</span>
           </div>
         </div>
 
@@ -115,12 +115,15 @@
           <input type="text" [(ngModel)]="purpose" name="purpose" placeholder="Mục đích bạn đến với website" />
         </div>
 
-        <button type="submit">Đăng ký</button>
+        <button type="submit" class="btn-submit" [disabled]="isLoading">
+          <span *ngIf="isLoading">Đang xử lý...</span>
+          <span *ngIf="!isLoading">Đăng ký</span>
+        </button>
       </form>
 
       <p class="sign-up">
         Bạn đã có tài khoản?
-        <a routerLink="/login" class="register-link">Đăng nhập</a>
+        <a routerLink="/login" class="sign-up__link">Đăng nhập ngay</a>
       </p>
     </div>
   </div>
