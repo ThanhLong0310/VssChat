@@ -2,14 +2,16 @@
   <div class="left-panel">
     <div class="illustration">
       <img src="assets/images/background-img.png" alt="background" class="illustration__img" />
+      
       <div class="illustration__text">
         <h1>Hệ thống quản lý chat đa nền tảng</h1>
         <p>Tiết kiệm thời gian tư vấn và chăm sóc khách hàng</p>
-        <div class="illustration__dots">
-          <span class="dot active"></span>
-          <span class="dot active"></span>
-          <span class="dot active"></span>
-        </div>
+      </div>
+
+      <div class="illustration__dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
       </div>
     </div>
   </div>
@@ -20,8 +22,6 @@
       <select id="language-select" name="languages" aria-label="Chọn ngôn ngữ">
         <option value="vi">Tiếng Việt</option>
         <option value="en">Tiếng Anh</option>
-        <option value="jp">Tiếng Nhật</option>
-        <option value="cn">Tiếng Trung</option>
       </select>
     </div>
 
@@ -36,75 +36,44 @@
         
         <div class="form-row">
           <div class="form-group form-group--half">
-            <input type="text" [(ngModel)]="last_name" name="last_name" placeholder="Nhập họ của bạn" required 
-                   #lastName="ngModel" 
+            <input type="text" [(ngModel)]="last_name" name="last_name" placeholder="Nhập họ của bạn" required #lastName="ngModel" 
                    [class.error-border]="lastName.invalid && (lastName.dirty || lastName.touched || isSubmitted)" />
-            <div *ngIf="lastName.invalid && (lastName.dirty || lastName.touched || isSubmitted)" class="form-group__error">
-              <span *ngIf="lastName.errors?.['required']">Họ là bắt buộc.</span>
-            </div>
           </div>
 
           <div class="form-group form-group--half">
-            <input type="text" [(ngModel)]="first_name" name="first_name" placeholder="Nhập tên của bạn" required 
-                   #firstName="ngModel"
+            <input type="text" [(ngModel)]="first_name" name="first_name" placeholder="Nhập tên của bạn" required #firstName="ngModel"
                    [class.error-border]="firstName.invalid && (firstName.dirty || firstName.touched || isSubmitted)" />
-            <div *ngIf="firstName.invalid && (firstName.dirty || firstName.touched || isSubmitted)" class="form-group__error">
-              <span *ngIf="firstName.errors?.['required']">Tên là bắt buộc.</span>
-            </div>
           </div>
         </div>
 
         <div class="form-group">
-          <input type="email" [(ngModel)]="email" name="email" placeholder="Nhập email làm việc" required email 
-                 #emailCtrl="ngModel"
+          <input type="email" [(ngModel)]="email" name="email" placeholder="Nhập email làm việc" required email #emailCtrl="ngModel"
                  [class.error-border]="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched || isSubmitted)" />
-          <div *ngIf="emailCtrl.invalid && (emailCtrl.dirty || emailCtrl.touched || isSubmitted)" class="form-group__error">
-            <span *ngIf="emailCtrl.errors?.['required']">Email là bắt buộc.</span>
-            <span *ngIf="emailCtrl.errors?.['email']">Email không đúng định dạng.</span>
-          </div>
         </div>
 
         <div class="form-row">
           <div class="form-group form-group--half">
-            <input type="text" [(ngModel)]="company" name="company" placeholder="Nhập tên công ty" required 
-                   #companyCtrl="ngModel"
+            <input type="text" [(ngModel)]="company" name="company" placeholder="Nhập tên công ty" required #companyCtrl="ngModel"
                    [class.error-border]="companyCtrl.invalid && (companyCtrl.dirty || companyCtrl.touched || isSubmitted)"/>
-            <div *ngIf="companyCtrl.invalid && (companyCtrl.dirty || companyCtrl.touched || isSubmitted)" class="form-group__error">
-              <span>Vui lòng nhập công ty.</span>
-            </div>
           </div>
 
           <div class="form-group form-group--half">
-            <select [(ngModel)]="country" name="country" required 
-                    #countryCtrl="ngModel"
+            <select [(ngModel)]="country" name="country" required #countryCtrl="ngModel"
                     [class.error-border]="countryCtrl.invalid && (countryCtrl.dirty || countryCtrl.touched || isSubmitted)">
               <option value="" disabled selected>Quốc gia</option>
               <option value="vn">Việt Nam</option>
               <option value="us">US</option>
-              <option value="jp">Nhật Bản</option>
-              <option value="cn">Trung Quốc</option>
-              <option value="uk">Anh Quốc</option>
             </select>
-            <div *ngIf="countryCtrl.invalid && (countryCtrl.dirty || countryCtrl.touched || isSubmitted)" class="form-group__error">
-              <span>Vui lòng chọn quốc gia.</span>
-            </div>
           </div>
         </div>
 
         <div class="form-group">
-          <select [(ngModel)]="field" name="field" required 
-                  #fieldCtrl="ngModel"
+          <select [(ngModel)]="field" name="field" required #fieldCtrl="ngModel"
                   [class.error-border]="fieldCtrl.invalid && (fieldCtrl.dirty || fieldCtrl.touched || isSubmitted)">
             <option value="" disabled selected>Nhập lĩnh vực</option>
             <option value="it">Công nghệ</option>
             <option value="sale">Kinh doanh</option>
-            <option value="education">Giáo dục</option>
-            <option value="finance">Tài chính</option>
-            <option value="healthcare">Y tế</option>
           </select>
-          <div *ngIf="fieldCtrl.invalid && (fieldCtrl.dirty || fieldCtrl.touched || isSubmitted)" class="form-group__error">
-            <span>Vui lòng chọn lĩnh vực.</span>
-          </div>
         </div>
 
         <div class="form-group">

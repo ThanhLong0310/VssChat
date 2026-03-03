@@ -5,46 +5,38 @@
       <div class="illustration__text">
         <h1>Hệ thống quản lý chat đa nền tảng</h1>
         <p>Tiết kiệm thời gian tư vấn và chăm sóc khách hàng</p>
-        <div class="illustration__dots">
-          <span class="dot active"></span>
-          <span class="dot active"></span>
-          <span class="dot active"></span>
-        </div>
+      </div>
+      <div class="illustration__dots">
+        <span class="dot active"></span><span class="dot"></span><span class="dot"></span>
       </div>
     </div>
   </div>
 
   <div class="right-panel">
-    <div class="language-selector">
-      <img src="assets/icons/language.png" alt="global icon" class="language-selector__icon" />
-      <select id="language-select" name="languages" aria-label="Chọn ngôn ngữ">
-        <option value="vi">Tiếng Việt</option>
-        <option value="en">Tiếng Anh</option>
-        <option value="jp">Tiếng Nhật</option>
-        <option value="cn">Tiếng Trung</option>
-      </select>
-    </div>
-
     <div class="login-box">
       <img src="assets/images/vss-chat.png" alt="VSS Logo" class="login-box__logo" />
       <h2 class="login-box__title">Đăng nhập vào tài khoản của bạn</h2>
 
-      <form class="login-form" (ngSubmit)="onSubmit()" #loginForm="ngForm" novalidate>
+      <form class="login-form" #loginForm="ngForm" (ngSubmit)="onSubmit()">
         
+        <div class="alert alert--danger" *ngIf="errorMsg">
+          {{ errorMsg }}
+        </div>
+
         <div class="form-group">
           <input 
             type="email" 
-            [(ngModel)]="email" 
             name="email" 
             placeholder="Tài khoản (Email)" 
             required 
             email
-            #emailCtrl="ngModel" 
-            [class.error-border]="emailCtrl.invalid && (emailCtrl.touched || isSubmitted)" 
+            [(ngModel)]="email" 
+            #emailModel="ngModel"
+            [class.error-border]="(emailModel.invalid && emailModel.touched) || (isSubmitted && emailModel.invalid)" 
           />
-          <div *ngIf="emailCtrl.invalid && (emailCtrl.touched || isSubmitted)" class="form-group__error">
-            <span *ngIf="emailCtrl.errors?.['required']">Bạn chưa nhập tài khoản.</span>
-            <span *ngIf="emailCtrl.errors?.['email']">Email không đúng định dạng.</span>
+          <div class="form-group__error" *ngIf="(emailModel.invalid && emailModel.touched) || (isSubmitted && emailModel.invalid)">
+            <span *ngIf="emailModel.errors?.['required']">Vui lòng nhập email.</span>
+            <span *ngIf="emailModel.errors?.['email']">Email không đúng định dạng.</span>
           </div>
         </div>
 
@@ -52,48 +44,38 @@
           <div class="password-wrapper">
             <input 
               [type]="showPassword ? 'text' : 'password'" 
-              [(ngModel)]="password" 
-              name="password"
+              name="password" 
               placeholder="Mật khẩu" 
               required 
-              minlength="6" 
-              #passCtrl="ngModel"
-              [class.error-border]="passCtrl.invalid && (passCtrl.touched || isSubmitted)" 
+              minlength="6"
+              [(ngModel)]="password"
+              #passwordModel="ngModel"
+              [class.error-border]="(passwordModel.invalid && passwordModel.touched) || (isSubmitted && passwordModel.invalid)"
             />
-            <button 
-              type="button" 
-              class="password-wrapper__toggle" 
-              (click)="togglePassword()" 
-              aria-label="Ẩn hiện mật khẩu">
+            <button type="button" class="password-wrapper__toggle" (click)="togglePassword()">
               <i class="fas" [class.fa-eye]="showPassword" [class.fa-eye-slash]="!showPassword"></i>
             </button>
           </div>
-          <div *ngIf="passCtrl.invalid && (passCtrl.touched || isSubmitted)" class="form-group__error">
-            <span *ngIf="passCtrl.errors?.['required']">Bạn chưa nhập mật khẩu.</span>
-            <span *ngIf="passCtrl.errors?.['minlength']">Mật khẩu phải từ 6 ký tự.</span>
+          <div class="form-group__error" *ngIf="(passwordModel.invalid && passwordModel.touched) || (isSubmitted && passwordModel.invalid)">
+            <span *ngIf="passwordModel.errors?.['required']">Vui lòng nhập mật khẩu.</span>
+            <span *ngIf="passwordModel.errors?.['minlength']">Mật khẩu phải từ 6 ký tự.</span>
           </div>
-        </div>
-
-        <div *ngIf="errorMsg" class="alert alert--danger">
-          {{ errorMsg }}
         </div>
 
         <div class="form-options">
           <label class="form-options__remember">
-            <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe"> Ghi nhớ đăng nhập
+            <input type="checkbox" name="rememberMe" [(ngModel)]="rememberMe"> Ghi nhớ đăng nhập
           </label>
           <a routerLink="/forgot-password" class="form-options__forgot">Quên mật khẩu?</a>
         </div>
 
         <button type="submit" class="btn-submit" [disabled]="isLoading">
-          <span *ngIf="isLoading">Đang đăng nhập...</span>
-          <span *ngIf="!isLoading">Đăng nhập</span>
+          {{ isLoading ? 'Đang xử lý...' : 'Đăng nhập' }}
         </button>
-
       </form>
 
       <p class="sign-up">
-        Bạn chưa có tài khoản?
+        Bạn chưa có tài khoản? 
         <a routerLink="/register" class="sign-up__link">Đăng ký ngay</a>
       </p>
     </div>

@@ -15,24 +15,20 @@ export class ResetPasswordComponent {
 
   constructor(private router: Router) {}
 
-  toggleNewPassword() {
+  toggleNewPassword(): void {
     this.showNewPassword = !this.showNewPassword;
   }
 
-  toggleConfirmPassword() {
+  toggleConfirmPassword(): void {
     this.showConfirmPassword = !this.showConfirmPassword;
   }
 
-  onSubmit() {
-    if (this.newPassword !== this.confirmPassword) {
-      alert('Mật khẩu không khớp!');
-      return;
-    }
+  onSubmit(): void {
+    if (this.newPassword !== this.confirmPassword) return;
     
-    // Logic gọi API đổi mật khẩu ở đây
-    console.log('Đổi mật khẩu thành công:', this.newPassword);
-    
-    alert('Đổi mật khẩu thành công! Vui lòng đăng nhập lại.');
+    // Giả lập xử lý thành công
+    console.log('Mật khẩu mới đã được thiết lập');
+    alert('Đổi mật khẩu thành công! Bạn sẽ được đưa về trang đăng nhập.');
     this.router.navigate(['/login']);
   }
 }

@@ -12,14 +12,14 @@ export class VerifyOtpComponent {
   constructor(private router: Router) {}
 
   onVerify() {
-    // Fake logic: Nhập gì cũng đúng
-    if (this.otpCode) {
-      alert('Xác thực thành công!');
+    if (this.otpCode.length === 6) {
+      console.log('Mã OTP đã nhập:', this.otpCode);
       this.router.navigate(['/reset-password']); 
     }
   }
 
   resend() {
-    alert('Đã gửi lại mã OTP!');
+    console.log('Đã gửi lại mã OTP!');
+    alert('Một mã OTP mới đã được gửi đến email của bạn.');
   }
 }

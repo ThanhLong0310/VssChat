@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router'; // 1. Import Router
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forgot-password',
@@ -9,16 +9,13 @@ import { Router } from '@angular/router'; // 1. Import Router
 export class ForgotPasswordComponent {
   email: string = '';
 
-  // 2. Tiêm Router vào constructor
   constructor(private router: Router) {}
 
   onSubmit() {
-    console.log('Đang fake gửi mail cho:', this.email);
-    
-    // Vì đang làm Mock/Fake, chúng ta cho hiện thông báo rồi chuyển trang luôn
-    alert('Hệ thống Mock: Đã gửi mã xác nhận giả lập!');
-    
-    // 3. Điều hướng sang trang nhập mã (đường dẫn đã khai báo trong AppModule)
-    this.router.navigate(['/verify-otp']); 
+    if (this.email) {
+      console.log('Yêu cầu tìm tài khoản cho:', this.email);
+      // Chuyển sang bước 2: Verify OTP
+      this.router.navigate(['/verify-otp']); 
+    }
   }
 }
