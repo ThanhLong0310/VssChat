@@ -2,7 +2,7 @@
   <div class="left-panel">
     <div class="illustration">
       <img src="assets/images/background-img.png" alt="background" class="illustration__img" />
-      
+
       <div class="illustration__text">
         <h1>Hệ thống quản lý chat đa nền tảng</h1>
         <p>Tiết kiệm thời gian tư vấn và chăm sóc khách hàng</p>
@@ -25,7 +25,7 @@
     </div>
 
     <div class="login-box otp-box">
-      
+
       <div class="otp-header">
         <a routerLink="/forgot-password" class="btn-back">
           <i class="fas fa-chevron-left"></i> Quay lại
@@ -37,22 +37,15 @@
         <div class="icon-area">
           <img src="./assets/images/mail-sending.png" alt="Mail Icon" style="height: 80px; margin-bottom: 20px;" />
         </div>
-        
+
         <h2 class="login-box__title">Kiểm tra mail</h2>
         <p class="reset-desc">Chúng tôi đã gửi cho bạn mã xác nhận. Vui lòng kiểm tra mã trong email của bạn.</p>
 
         <form (ngSubmit)="onVerify()" #otpForm="ngForm">
           <div class="form-group">
             <div class="otp-input-wrapper">
-              <input
-                type="text"
-                [(ngModel)]="otpCode"
-                name="otpCode"
-                placeholder="Nhập mã OTP"
-                required
-                maxlength="6"
-                class="otp-input"
-              />
+              <input type="text" [(ngModel)]="otpCode" name="otpCode" placeholder="Nhập mã OTP" required maxlength="6"
+                class="otp-input" />
               <span class="resend-link" (click)="resend()">Gửi lại mã</span>
             </div>
           </div>

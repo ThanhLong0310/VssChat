@@ -31,13 +31,13 @@
   border-radius: 8px;
   margin-bottom: 20px;
   font-weight: 500;
-  
+
   &-danger {
     background-color: #ffe6e6;
     color: variable.$danger-color;
     border: 1px solid rgba(variable.$danger-color, 0.2);
   }
-  
+
   &-success {
     background-color: #e6ffed;
     color: #28a745;
@@ -195,7 +195,8 @@
     min-width: 600px; // Ép bảng có độ rộng tối thiểu để không bị bóp méo chữ
     border-collapse: collapse;
 
-    th, td {
+    th,
+    td {
       padding: 16px 20px;
       text-align: left;
       border-bottom: 1px solid variable.$border-light;
@@ -213,11 +214,11 @@
 
     tbody tr {
       transition: background 0.2s;
-      
+
       &:hover {
         background: rgba(variable.$primary-color, 0.03);
       }
-      
+
       &:last-child td {
         border-bottom: none;
       }
@@ -228,14 +229,27 @@
       height: 48px;
       border-radius: 50%; // Avatar tròn chuyên nghiệp hơn
       object-fit: cover;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
 
     /* Tiện ích text */
-    .font-weight-medium { font-weight: 600; color: variable.$text-dark; }
-    .text-muted { color: #6c757d; }
-    .text-center { text-align: center; }
-    .py-4 { padding-top: 30px; padding-bottom: 30px; }
+    .font-weight-medium {
+      font-weight: 600;
+      color: variable.$text-dark;
+    }
+
+    .text-muted {
+      color: #6c757d;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .py-4 {
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
 
     /* Nút hành động */
     .actions-cell {
@@ -255,13 +269,21 @@
       &.btn-edit {
         background: rgba(variable.$secondary-color, 0.1);
         color: variable.$secondary-color;
-        &:hover { background: variable.$secondary-color; color: #fff; }
+
+        &:hover {
+          background: variable.$secondary-color;
+          color: #fff;
+        }
       }
 
       &.btn-delete {
         background: rgba(variable.$danger-color, 0.1);
         color: variable.$danger-color;
-        &:hover { background: variable.$danger-color; color: #fff; }
+
+        &:hover {
+          background: variable.$danger-color;
+          color: #fff;
+        }
       }
     }
   }
@@ -275,14 +297,14 @@
 
   .user-form {
     padding: 15px;
-    
+
     .form-grid {
       grid-template-columns: 1fr; // Ép thành 1 cột trên màn nhỏ
     }
-    
+
     .form-actions {
       flex-direction: column; // Các nút xếp dọc
-      
+
       .btn {
         width: 100%;
       }

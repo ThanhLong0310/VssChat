@@ -16,7 +16,7 @@ export class LoginComponent {
   email: string = '';
   password: string = '';
   rememberMe: boolean = false;
-  
+
   // --- TRẠNG THÁI GIAO DIỆN ---
   showPassword: boolean = false;
   isSubmitted: boolean = false;
@@ -28,9 +28,9 @@ export class LoginComponent {
   readonly MAX_ATTEMPTS: number = 5;
 
   constructor(
-    private router: Router, 
+    private router: Router,
     private http: HttpClient
-  ) {}
+  ) { }
 
   /**
    * Chuyển đổi trạng thái hiển thị mật khẩu (ẩn/hiện)
@@ -48,7 +48,7 @@ export class LoginComponent {
 
     // 1. Kiểm tra validation của Angular (required, email, minlength...)
     if (this.loginForm.invalid) {
-      return; 
+      return;
     }
 
     // 2. Kiểm tra nếu đã nhập sai quá số lần quy định
@@ -78,14 +78,14 @@ export class LoginComponent {
 
           if (userFound) {
             console.log('Đăng nhập thành công:', userFound);
-            
+
             // Lưu thông tin đăng nhập (Tùy chọn)
             if (this.rememberMe) {
               localStorage.setItem('currentUser', JSON.stringify(userFound));
             }
 
             // Chuyển hướng vào trang chính
-            this.router.navigate(['/dashboard']); 
+            this.router.navigate(['/dashboard']);
           } else {
             // Không tìm thấy user khớp thông tin
             this.handleFailedLogin();
@@ -105,8 +105,6 @@ export class LoginComponent {
   private handleFailedLogin(): void {
     this.failedAttempts++;
     this.errorMsg = `Sai tài khoản hoặc mật khẩu! (Lần ${this.failedAttempts}/${this.MAX_ATTEMPTS})`;
-    
-    
     this.password = '';
     this.isSubmitted = false;
   }

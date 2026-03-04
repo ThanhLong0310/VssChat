@@ -9,12 +9,12 @@ import { Router } from '@angular/router';
 export class VerifyOtpComponent {
   otpCode: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   onVerify() {
     if (this.otpCode.length === 6) {
       console.log('Mã OTP đã nhập:', this.otpCode);
-      this.router.navigate(['/reset-password']); 
+      this.router.navigate(['/reset-password']);
     }
   }
 

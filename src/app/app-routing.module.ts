@@ -13,8 +13,6 @@ const routes: Routes = [
   { path: 'register', component: RegisterFormComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  
-  // Đảm bảo 2 dòng này phải có mặt:
   { path: 'verify-otp', component: VerifyOtpComponent },
   { path: 'reset-password', component: ResetPasswordComponent },
 ];

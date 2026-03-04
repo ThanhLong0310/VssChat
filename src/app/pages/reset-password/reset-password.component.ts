@@ -9,11 +9,11 @@ import { Router } from '@angular/router';
 export class ResetPasswordComponent {
   newPassword = '';
   confirmPassword = '';
-  
+
   showNewPassword = false;
   showConfirmPassword = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   toggleNewPassword(): void {
     this.showNewPassword = !this.showNewPassword;
@@ -25,7 +25,7 @@ export class ResetPasswordComponent {
 
   onSubmit(): void {
     if (this.newPassword !== this.confirmPassword) return;
-    
+
     // Giả lập xử lý thành công
     console.log('Mật khẩu mới đã được thiết lập');
     alert('Đổi mật khẩu thành công! Bạn sẽ được đưa về trang đăng nhập.');

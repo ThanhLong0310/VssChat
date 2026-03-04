@@ -16,25 +16,16 @@
     <div class="login-box">
       <img src="assets/images/vss-chat.png" alt="VSS Logo" class="login-box__logo" />
       <h2 class="login-box__title">Đăng nhập vào tài khoản của bạn</h2>
-
       <form class="login-form" #loginForm="ngForm" (ngSubmit)="onSubmit()">
-        
         <div class="alert alert--danger" *ngIf="errorMsg">
           {{ errorMsg }}
         </div>
-
         <div class="form-group">
-          <input 
-            type="email" 
-            name="email" 
-            placeholder="Tài khoản (Email)" 
-            required 
-            email
-            [(ngModel)]="email" 
+          <input type="email" name="email" placeholder="Tài khoản (Email)" required email [(ngModel)]="email"
             #emailModel="ngModel"
-            [class.error-border]="(emailModel.invalid && emailModel.touched) || (isSubmitted && emailModel.invalid)" 
-          />
-          <div class="form-group__error" *ngIf="(emailModel.invalid && emailModel.touched) || (isSubmitted && emailModel.invalid)">
+            [class.error-border]="(emailModel.invalid && emailModel.touched) || (isSubmitted && emailModel.invalid)" />
+          <div class="form-group__error"
+            *ngIf="(emailModel.invalid && emailModel.touched) || (isSubmitted && emailModel.invalid)">
             <span *ngIf="emailModel.errors?.['required']">Vui lòng nhập email.</span>
             <span *ngIf="emailModel.errors?.['email']">Email không đúng định dạng.</span>
           </div>
@@ -42,21 +33,15 @@
 
         <div class="form-group">
           <div class="password-wrapper">
-            <input 
-              [type]="showPassword ? 'text' : 'password'" 
-              name="password" 
-              placeholder="Mật khẩu" 
-              required 
-              minlength="6"
-              [(ngModel)]="password"
-              #passwordModel="ngModel"
-              [class.error-border]="(passwordModel.invalid && passwordModel.touched) || (isSubmitted && passwordModel.invalid)"
-            />
+            <input [type]="showPassword ? 'text' : 'password'" name="password" placeholder="Mật khẩu" required
+              minlength="6" [(ngModel)]="password" #passwordModel="ngModel"
+              [class.error-border]="(passwordModel.invalid && passwordModel.touched) || (isSubmitted && passwordModel.invalid)" />
             <button type="button" class="password-wrapper__toggle" (click)="togglePassword()">
               <i class="fas" [class.fa-eye]="showPassword" [class.fa-eye-slash]="!showPassword"></i>
             </button>
           </div>
-          <div class="form-group__error" *ngIf="(passwordModel.invalid && passwordModel.touched) || (isSubmitted && passwordModel.invalid)">
+          <div class="form-group__error"
+            *ngIf="(passwordModel.invalid && passwordModel.touched) || (isSubmitted && passwordModel.invalid)">
             <span *ngIf="passwordModel.errors?.['required']">Vui lòng nhập mật khẩu.</span>
             <span *ngIf="passwordModel.errors?.['minlength']">Mật khẩu phải từ 6 ký tự.</span>
           </div>
@@ -75,7 +60,7 @@
       </form>
 
       <p class="sign-up">
-        Bạn chưa có tài khoản? 
+        Bạn chưa có tài khoản?
         <a routerLink="/register" class="sign-up__link">Đăng ký ngay</a>
       </p>
     </div>

@@ -24,7 +24,7 @@ export class DashboardComponent implements OnInit {
   avatar: string = '';
   editingUserId: string | null = null;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.loadUsers();
@@ -98,7 +98,7 @@ export class DashboardComponent implements OnInit {
     this.editingUserId = user.id ? String(user.id) : null;
     this.errorMsg = '';
     this.successMsg = '';
-    
+
     // Cuộn lên form mượt mà
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
@@ -134,7 +134,7 @@ export class DashboardComponent implements OnInit {
     this.errorMsg = '';
     this.loadUsers();
     this.resetForm();
-    
+
     // Tự động ẩn thông báo thành công sau 3 giây
     setTimeout(() => this.successMsg = '', 3000);
   }

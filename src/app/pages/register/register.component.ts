@@ -27,7 +27,7 @@ export class RegisterFormComponent {
   errorMsg: string = '';
   successMsg: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) { }
 
   /**
    * Xử lý sự kiện khi người dùng bấm Đăng ký
@@ -40,7 +40,7 @@ export class RegisterFormComponent {
     // Kiểm tra xem các trường bắt buộc đã được điền đúng chưa
     if (this.registerForm.invalid) {
       this.errorMsg = 'Vui lòng kiểm tra lại các trường thông tin bị lỗi.';
-      return; 
+      return;
     }
 
     // Nếu form hợp lệ, tiến hành gọi API
@@ -67,11 +67,11 @@ export class RegisterFormComponent {
 
     console.log('Đang gửi dữ liệu đăng ký:', payload);
 
-    // --- Giả lập gọi API bằng setTimeout (thay bằng HttpClient thực tế của bạn) ---
+    // --- Giả lập gọi API bằng setTimeout (thay bằng HttpClient thực tế) ---
     setTimeout(() => {
       this.isLoading = false;
       this.successMsg = 'Đăng ký thành công! Đang chuyển hướng...';
-      
+
       // Chuyển về trang đăng nhập sau 2 giây
       setTimeout(() => {
         this.router.navigate(['/login']);
